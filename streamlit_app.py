@@ -25,7 +25,7 @@ if ingredients_list:
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, Name_on_Order)
             values ('""" + ingredients_string + """','""" +Name_on_Order+ """');"""
 
-    st.write(my_insert_stmt)
+    #st.write(my_insert_stmt)
     
     time_to_insert = st.button('Submit')
 
