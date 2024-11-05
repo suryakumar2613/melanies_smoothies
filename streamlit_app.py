@@ -15,23 +15,23 @@ st.write("The Name on Your Smoothie Will be: ", Name_on_Order)
 cnx = st.connection("snowflake")
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
-#st.dataframe(data = my_dataframe, use_container_width = True)
-#st.stop()
 
 pd_df = my_dataframe.to_pandas()
-#st.dataframe(pd_df)
-#st.stop()
 
-ingredients_list = st.multiselect('Choose up to 5 ingredients:', my_dataframe, max_selections=5)
+# Display a multiselect box for ingredients
+ingredients_list = st.multiselect('Choose up to 5 ingredients:', pd_df['FRUIT_NAME'].tolist(), max_selections=5)
 
 if ingredients_list:
     ingredients_string = ' '.join(ingredients_list)  # Create a string from ingredients list
 
     for Fruit_Choosen in ingredients_list:
-        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_choosen, 'SEARCH_ON'].iloc[0]
-        st.write('The search value for ', fruit_choosen,' is ', search_on, '.')
+        # Corrected line: Consistent use of 'Fruit_Choosen' instead of 'fruit_choosen'
+        search_on = pd_df.loc[pd_df['FRUIT_NAME'] == Fruit_Choosen, 'SEARCH_ON'].iloc[0]
+        st.write('The search value for ', Fruit_Choosen, ' is ', search_on, '.')
+
         # Use Tropical Fruit and Veg API to get information on the selected fruit
         response = requests.get(f"https://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem={Fruit_Choosen.lower()}")
+        
         # Check if the response is JSON and display the data
         if response.status_code == 200 and response.headers.get("Content-Type") == "application/json":
             try:
