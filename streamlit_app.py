@@ -19,8 +19,8 @@ my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT
 #st.stop()
 
 pd_df = my_dataframe.to_pandas()
-st.dataframe(pd_df)
-st.stop()
+#st.dataframe(pd_df)
+#st.stop()
 
 ingredients_list = st.multiselect('Choose up to 5 ingredients:', my_dataframe, max_selections=5)
 
@@ -28,9 +28,10 @@ if ingredients_list:
     ingredients_string = ' '.join(ingredients_list)  # Create a string from ingredients list
 
     for Fruit_Choosen in ingredients_list:
+        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+        st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
         # Use Tropical Fruit and Veg API to get information on the selected fruit
         response = requests.get(f"https://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem={Fruit_Choosen.lower()}")
-        
         # Check if the response is JSON and display the data
         if response.status_code == 200 and response.headers.get("Content-Type") == "application/json":
             try:
