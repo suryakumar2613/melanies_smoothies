@@ -28,7 +28,7 @@ if ingredients_list:
     ingredients_string = ' '.join(ingredients_list)  # Create a string from ingredients list
 
     for Fruit_Choosen in ingredients_list:
-        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_choosen, 'SEARCH_ON'].iloc[0]
         st.write('The search value for ', fruit_choosen,' is ', search_on, '.')
         # Use Tropical Fruit and Veg API to get information on the selected fruit
         response = requests.get(f"https://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem={Fruit_Choosen.lower()}")
