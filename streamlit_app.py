@@ -29,7 +29,7 @@ if ingredients_list:
 
     for Fruit_Choosen in ingredients_list:
         search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
-        st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
+        st.write('The search value for ', fruit_choosen,' is ', search_on, '.')
         # Use Tropical Fruit and Veg API to get information on the selected fruit
         response = requests.get(f"https://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem={Fruit_Choosen.lower()}")
         # Check if the response is JSON and display the data
